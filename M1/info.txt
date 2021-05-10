@@ -1,0 +1,28 @@
+M3 meetodi juures on esimeseks sisendiks ALATI tugiheli (column 1)
+A - Alter
+B - koguA
+C - kihelkond
+D - Laululiik
+
+1
+A 0
+B 18
+C 19
+D 20
+
+2
+AB 0 	18
+AC 0 	19
+AD 0 	20
+BC 18 	19
+BD 18 	20
+CD 19 	20
+
+3
+ABC 0 	18	19
+ABD 0	18	20
+ACD 0	19	20
+BCD 18	19	20
+
+4
+ABCD 0	18	19	20
