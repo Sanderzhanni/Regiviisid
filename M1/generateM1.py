@@ -1,8 +1,8 @@
 import tensorflow as tf
 import numpy as np
 
-dataset = 'regidataclean3.csv'
-evaluation_data = np.loadtxt('../../data/' + dataset, delimiter=',', usecols=(1, 0, 18, 19, 20))
+dataset = 'regicleanFiltered.csv'
+evaluation_data = np.loadtxt('../data/' + dataset, delimiter=',', usecols=(1, 0, 18, 19, 20))
 
 def load_models():
     models_A = []
@@ -107,7 +107,8 @@ def gen_output():
         output.append(rearr)
     np.savetxt('./output.csv', output, fmt='%i', delimiter=',')
 
-gen_output()
+if __name__ == '__main__':
+    gen_output()
 
 
 

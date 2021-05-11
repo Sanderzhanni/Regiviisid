@@ -1,44 +1,49 @@
-import tensorflow as tf
+#tensorflow
+from tensorflow.keras.models import load_model
+from tensorflow import convert_to_tensor, int32
 import numpy as np
-import time 
 
-dataset = 'regidata.csv'
-evaluation_data = np.loadtxt('../../data/'+dataset, delimiter=',', usecols=(0, 1, 18, 19, 20))
+dataset = '../data/regiclean.csv'
+evaluation_data = np.loadtxt('./'+dataset, delimiter=',', usecols=(0, 1, 18, 19, 20))
 
-tic = time.perf_counter()
-model = tf.keras.models.load_model('./functional')
-root = tf.keras.models.load_model('./root/PR')
-alt = tf.keras.models.load_model('./alt/PA');
-toc = time.perf_counter()
+#load models
+model = load_model("./models/functional")
 
-print(f"Loading model took {toc - tic:0.4f} seconds")
-
+#get the prediction probabilities of all classes
 def get_p(model, param):
-    tensor = tf.convert_to_tensor(param, dtype=tf.int32)
-    predictions = model.predict(tensor)
-    return predictions
+     tensor = convert_to_tensor(param, dtype=int32)
+     predictions = model.predict(tensor)
+     return predictions
+    
+def remove_class_zero(p, class_num):
+     temp = []
+     normalized = []
+     zero_class = p[0]
+     remainder = zero_class / class_num
 
-def get_p2(model, param):
-    tensor = tf.convert_to_tensor(param, dtype=tf.int32)
-    predictions = model.predict_step(tensor)
-    return predictions.numpy().flatten()
+     # Make class "0" probability 0
+     # Distrubute the remainder evenly among all other classes
+     for i in range(len(p)):
+         if i == 0:
+             temp.append(0)
+         else:
+             temp.append(p[i]+remainder)
+     # Normalize probabilities
+     for x in temp:
+         normalized.append(x/sum(temp))
+     return normalized
 
-def print_p(p):
-    for i, x in enumerate(p):
-        print("class "+str(i)+": ", str(round(x, 2))+" %")
-
+#pick classes based on probability
 def get_output(prob):
-    #print_p(prob)
     output = []
-    probabilities = prob
-    for p in probabilities:
-        output.append(np.random.choice(31, 1, p=p.flatten()).flatten()[0])
-    return output 
+    for p in prob:
+        output.append(np.random.choice(31, 1, p=remove_class_zero(p.flatten(), 30)).flatten()[0])
+    return output
 
 def gen_melody(s):
     init = s
     res = get_output(get_p(model, init))
-    init = np.array([np.append(init, res)])   
+    init = np.array([np.append(init, res)])
     return init
 
 #return all notes with their respective paramaters
@@ -52,7 +57,8 @@ def gen_output():
         output.append(rearr)
     np.savetxt('./output.csv', output, fmt='%i', delimiter=',')
 
-gen_output()
+if __name__ == '__main__':
+    gen_output()
 
 
 
@@ -65,3 +71,4 @@ gen_output()
 
 
 
+                                       

@@ -3,8 +3,8 @@ from tensorflow.keras.losses import SparseCategoricalCrossentropy
 from tensorflow.keras import Input, Model
 from tensorflow.keras.layers import Dense
 
-dataset = 'regiclean.csv'
-method = 'M4a'
+dataset = '../data/regiclean.csv'
+method = 'M2'
 
 def generate_model():
 
@@ -45,7 +45,7 @@ def generate_model():
             name="sparse_categorical_crossentropy" #For integer classes
         ),
         optimizer='Adam',
-        metrics=['accuracy']
+        metrics=['accuracy'] # can replace with SparseCategoricalAccuracy
     )
 
     y_train_data = {
@@ -69,13 +69,13 @@ def generate_model():
 
 
     ### Train and evaluate
-    #model.fit(x_train, y=y_train_data, epochs=1)
+    model.fit(x_train, y=y_train_data, epochs=1)
  
     ### Save model
-    #model.save('./models/' + method + '/functional') 
+    model.save('./model') 
         
-
-generate_model()
+if __name__ == '__main__':
+    generate_model()
 
 
 

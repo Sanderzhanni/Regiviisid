@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="/favicon.png"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Base -->
+  <script src="./MIDIjs/Base64.js"></script>
+	<script src="./MIDIjs/Base64binary.js"></script>
+	<script src="./MIDIjs/WebAudioAPI.js"></script>
+	<!-- midi.js -->
+	<script src="./MIDIjs/audioDetect.js"></script>
+	<script src="./MIDIjs/gm.js"></script>
+	<script src="./MIDIjs/loader.js"></script>
+	<script src="./MIDIjs/plugin.audiotag.js"></script>
+	<script src="./MIDIjs/plugin.webaudio.js"></script>
+	<script src="./MIDIjs/plugin.webmidi.js"></script>
+	<!-- utils -->
+	<script src="./MIDIjs/dom_request_xhr.js"></script>
+	<script src="./MIDIjs/dom_request_script.js"></script>
+  <script defer src="vexflow.js"></script>
+  <script defer src="script.js"></script>
+  <script>
+    
+  </script>
+  <title>Regiviis</title>
+</head>
+<body>
+  <label for="key">Helistik</label>
+  <select name="key" id="key">
+    <option value="51,1">A-duur</option>
+    <option value="0,1">A-moll</option>
+    <option value="0,3">C-duur</option>
+    <option value="55,3">C-moll</option>
+    <option value="50,4">D-duur</option>
+    <option value="16,4">D-moll</option>
+    <option value="52,5">E-duur</option>
+    <option value="23,5">E-moll</option>
+    <option value="16,6">F-duur</option>
+    <option value="56,6">F-moll</option>
+    <option value="23,7">G-duur</option>
+    <option value="16,7">G-moll</option>
+  </select>
+  <br>
+  <label for="year">Kogumise aasta</label>
+  <select name="year" id="year">
+    <option value="0">Pole</option>
+    <option value="48">1801-1914</option>
+    <option value="49">1915-2000</option>
+  </select>
+  <br>
+  <label for="parish">Kihelkond</label>
+  <select name="parish" id="parish">
+    <option value="0">Pole</option>
+    <option value="39">Järva-Madise</option>
+    <option value="40">Türi</option>
+    <option value="41">Jõhvi</option>
+    <option value="42">Väike-Maarja</option>
+    <option value="43">Koeru</option>
+    <option value="44">Järva-Jaani</option>
+    <option value="45">Kadrina</option>
+    <option value="46">Peetri</option>
+    <option value="47">Kuusalu</option>
+  </select>
+  <br>
+  <label for="songtype">Laululiik</label>
+  <select name="songtype" id="songtype">
+    <option value="0">Pole</option>
+    <option value="31">Laste</option>
+    <option value="32">Lõikus</option>
+    <option value="33">Mardi</option>
+    <option value="34">Hälli</option>
+    <option value="35">Karja</option>
+    <option value="36">Pulma</option>
+    <option value="37">Jut</option>
+    <option value="39">Lüürika</option>
+  </select>
+  <br>
+  <button onclick="buildMelody()">Genereeri meloodia</button>
+  <br>
+  <div id="status"></div>
+  <div id="vf"></div>
+  <button id='playbtn' onclick="playTune()" disabled>Esita</button>
+</body>
+</html>

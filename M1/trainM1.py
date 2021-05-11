@@ -6,7 +6,7 @@ from tensorflow.keras.layers import Dense
 # Make numpy values easier to read.
 np.set_printoptions(precision=3, suppress=True)
 
-dataset = 'regiclean.csv'
+dataset = '../data/regiclean.csv'
 method = 'M1'
 
 def generate_model(output_col, input_columns, model_num, model_label):
@@ -70,8 +70,8 @@ def generate_model_combinations():
     for i in range(len(combinations)):
         generate_model_array(combinations[i], combination_labels[i])
 
-
-generate_model_combinations()
+if __name__ == '__main__':
+    generate_model_combinations()
         
 
 
